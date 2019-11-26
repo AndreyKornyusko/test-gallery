@@ -7,29 +7,27 @@ import HeadBar from '../HeadBar/HeadBar';
 
 import List from '../list/List';
 
+import Loader from '../loader/loader'
+
 class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
       images: [],
-      loading: false,
+      loading: true,
       searchQuery: '',
-      imgHeight: ''
+      imgHeight: '',
+      buttonAttribute: '',
+      offset: 0
     }
   }
 
   componentDidMount() {
 
-    // const list = document.querySelector("#gallery");
-    
-    // const listWidth = list.offsetWidth;
-    // console.log('listWidth', listWidth);
+    // console.log('componentDidMount');
 
-    // const imgHeight = listWidth * 0.25;
-    // console.log('imgHeight', imgHeight);
-
-    // const { searchQuery } = this.state;
-    // API.getImages(searchQuery)
+    // const { searchQuery, offset } = this.state;
+    // API.getImages(searchQuery, offset)
     //   .then(images => {
     //     console.log('images', images);
     //     this.setState({
@@ -44,34 +42,22 @@ class Main extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-
-    // const {imgHeight}= this.state;
-
-    // const prevImgHeight = prevState.imgHeight
-    // const nextImgHeight = this.state.imgHeight;
-
-    // if (prevImgHeight !== nextImgHeight) {
-    //   this.setState({ imgHeight: imgHeight })
-    //   console.log('imgHeight componentDidUpdate', imgHeight);
-    // }
-
-
-
     const prevStateQuery = prevState.searchQuery;
     const nextStateQuery = this.state.searchQuery;
 
     if (prevStateQuery !== nextStateQuery) {
 
-      const { searchQuery } = this.state;
-      console.log('searchQuery', searchQuery);
+      const { searchQuery, offset } = this.state;
+      // console.log('searchQuery', searchQuery);
 
-      API.getImages(searchQuery)
+      API.getImages(searchQuery, offset)
         .then(images => {
-          console.log('images', images);
+          // console.log('images', images);
           this.setState({
             images,
             loading: false
           });
+          // this.setState(prevState => ({ offset: prevState.offset + 8 }))
         })
         .catch(error => {
           this.setState({ error, loading: false });
@@ -80,6 +66,23 @@ class Main extends Component {
   }
 
   handleRefreshButtonClick = () => {
+
+    const { searchQuery, offset } = this.state;
+    this.setState(prevState => ({ offset: prevState.offset + 8 }))
+
+
+    API.getImages(searchQuery, offset)
+      .then(images => {
+        // console.log('images', images);
+        this.setState({
+          images,
+          loading: false
+        });
+      })
+      .catch(error => {
+        this.setState({ error, loading: false });
+      });
+
   }
 
 
@@ -89,13 +92,29 @@ class Main extends Component {
     const searchInput = document.querySelector('input[name=searchInput]');
     const inputValue = searchInput.value.trim();
     this.setState({ searchQuery: inputValue })
-
   }
 
-  render() {
-    const { images, imgHeight } = this.state;
 
-    console.log('imgHeight', imgHeight);
+  handleIButtonClick = (e) => {
+    const target = e.target;
+    var dataId = target.getAttribute("data-attribute");
+
+    this.setState({ buttonAttribute: dataId })
+  }
+
+
+  handleBackdropClick = (e) => {
+    this.setState({ buttonAttribute: '' })
+  }
+
+
+  render() {
+    const {
+      images,
+      imgHeight,
+      buttonAttribute,
+      loading
+    } = this.state;
 
     return (
       <div className={styles.mainWrap}>
@@ -103,7 +122,14 @@ class Main extends Component {
           handleRefreshButtonClick={this.handleRefreshButtonClick}
           handleInputSubmit={this.handleInputSubmit}
         />
-        <List items={images} imageHeiht={imgHeight} />
+        {loading && <Loader />}
+
+        <List
+          items={images}
+          imageHeiht={imgHeight}
+          handleIButtonClick={this.handleIButtonClick}
+          handleBackdropClick={this.handleBackdropClick}
+          elemId={buttonAttribute} />
       </div>
     )
   }

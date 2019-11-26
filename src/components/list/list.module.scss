@@ -8,9 +8,8 @@
   list-style: none;
 }
 
-
-
 .listItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +32,6 @@
   object-fit: cover;
 }
 
-
 .nameWrap {
   display: flex;
   width: 100%;
@@ -52,7 +50,7 @@
 
 .iButton {
   width: 24px;
-  border:none;
+  border: none;
   background-color: #000;
   cursor: pointer;
   color: #fff;

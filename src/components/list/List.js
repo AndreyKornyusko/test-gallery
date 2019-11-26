@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './list.module.scss';
 
-const List = ({ items, imageHeiht, elemId, iclicked }) => (
+import Backdrop from './Backdrop/Backdrop';
+
+const List = ({ items, imageHeiht, elemId, handleIButtonClick, handleBackdropClick }) => (
   <ul
     id="gallery"
     className={styles.list}>
@@ -23,16 +25,22 @@ const List = ({ items, imageHeiht, elemId, iclicked }) => (
           <div className={styles.nameWrap}>
             <div className={styles.imgName}>{item.title}</div>
             <button
+              data-attribute={item.id}
               className={styles.iButton}
-            >i</button>
+              onClick={handleIButtonClick}
+            >
+              i
+            </button>
           </div>
 
-          {(iclicked && (elemId === item.id)) &&
+          {(elemId === item.id) &&
 
-            <div className={styles.backdrop}>
-              <div className={styles.imgSize}>{item.images.original.width} x {item.images.original.height}</div>
-              <div className={styles.imgUrl}>{item.url}</div>
-            </div>
+            <Backdrop
+              onClose={handleBackdropClick}
+              width={item.images.original.width}
+              height={item.images.original.height}
+              url={item.url}
+            />
           }
 
         </li>
