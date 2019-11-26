@@ -5,8 +5,57 @@
   max-width: 1000px;
   width: 70%;
   margin: 0 auto;
-  margin-left: 10px;
-  margin-right: 10px;
   list-style: none;
 }
 
+
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 22%;
+  margin: 10px;
+}
+
+.imgWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  // height: auto;
+  object-fit: cover;
+}
+
+
+.nameWrap {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.imgName {
+  color: #fff;
+}
+
+.iButton {
+  width: 24px;
+  border:none;
+  background-color: #000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+}

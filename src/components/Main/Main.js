@@ -13,30 +13,50 @@ class Main extends Component {
     this.state = {
       images: [],
       loading: false,
-      searchQuery: ''
+      searchQuery: '',
+      imgHeight: ''
     }
   }
 
   componentDidMount() {
 
-    const { searchQuery } = this.state;
-    console.log('searchQuery', searchQuery);
+    // const list = document.querySelector("#gallery");
+    
+    // const listWidth = list.offsetWidth;
+    // console.log('listWidth', listWidth);
 
-    API.getImages(searchQuery)
-      .then(images => {
-        console.log('images', images);
-        this.setState({
-          images,
-          loading: false
-        });
-      })
-      .catch(error => {
-        this.setState({ error, loading: false });
-      });
+    // const imgHeight = listWidth * 0.25;
+    // console.log('imgHeight', imgHeight);
+
+    // const { searchQuery } = this.state;
+    // API.getImages(searchQuery)
+    //   .then(images => {
+    //     console.log('images', images);
+    //     this.setState({
+    //       images,
+    //       loading: false
+    //     });
+    //   })
+    //   .catch(error => {
+    //     this.setState({ error, loading: false });
+    //   });
   }
 
 
   componentDidUpdate(prevProps, prevState) {
+
+    // const {imgHeight}= this.state;
+
+    // const prevImgHeight = prevState.imgHeight
+    // const nextImgHeight = this.state.imgHeight;
+
+    // if (prevImgHeight !== nextImgHeight) {
+    //   this.setState({ imgHeight: imgHeight })
+    //   console.log('imgHeight componentDidUpdate', imgHeight);
+    // }
+
+
+
     const prevStateQuery = prevState.searchQuery;
     const nextStateQuery = this.state.searchQuery;
 
@@ -64,17 +84,18 @@ class Main extends Component {
 
 
   handleInputSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const searchInput = document.querySelector('input[name=searchInput]');
     const inputValue = searchInput.value.trim();
     this.setState({ searchQuery: inputValue })
+
   }
 
   render() {
-    const { images } = this.state
+    const { images, imgHeight } = this.state;
 
-    const { query } = this.props
+    console.log('imgHeight', imgHeight);
 
     return (
       <div className={styles.mainWrap}>
@@ -82,7 +103,7 @@ class Main extends Component {
           handleRefreshButtonClick={this.handleRefreshButtonClick}
           handleInputSubmit={this.handleInputSubmit}
         />
-        <List items={images} />
+        <List items={images} imageHeiht={imgHeight} />
       </div>
     )
   }
