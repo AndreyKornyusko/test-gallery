@@ -19,19 +19,17 @@
 }
 
 .button {
-  height: 30px;
+  height: 40px;
   width: 110px;
   font-size: 18px;
   background-color: $primary-button-color;
   color: $primary-text-color;
-  line-height: 30px;
+  line-height: 40px;
   text-transform: uppercase;
   cursor: pointer;
   border: none;
 
   @media screen and (min-width: 480px) {
-    height: 40px;
-    line-height: 40px;
     font-size: 20px;
   }
 }
