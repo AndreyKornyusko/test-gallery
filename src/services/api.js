@@ -1,5 +1,5 @@
 
-const baseURL = 'http://api.giphy.com/v1/gifs';
+const baseURL = 'https://api.giphy.com/v1/gifs';
 const ApiKey = 'O3iJIz4KNHqyrwfM88y7Abn9WA2607z0'
 
 const getImages = (searchQuery, offset) => {
