@@ -14,32 +14,13 @@ class Main extends Component {
     super(props)
     this.state = {
       images: [],
-      loading: true,
+      loading: false,
       searchQuery: '',
       imgHeight: '',
       buttonAttribute: '',
       offset: 0
     }
   }
-
-  componentDidMount() {
-
-    // console.log('componentDidMount');
-
-    // const { searchQuery, offset } = this.state;
-    // API.getImages(searchQuery, offset)
-    //   .then(images => {
-    //     console.log('images', images);
-    //     this.setState({
-    //       images,
-    //       loading: false
-    //     });
-    //   })
-    //   .catch(error => {
-    //     this.setState({ error, loading: false });
-    //   });
-  }
-
 
   componentDidUpdate(prevProps, prevState) {
     const prevStateQuery = prevState.searchQuery;
@@ -48,16 +29,16 @@ class Main extends Component {
     if (prevStateQuery !== nextStateQuery) {
 
       const { searchQuery, offset } = this.state;
-      // console.log('searchQuery', searchQuery);
+      this.setState({ loading: true });
+
 
       API.getImages(searchQuery, offset)
         .then(images => {
-          // console.log('images', images);
           this.setState({
             images,
             loading: false
           });
-          // this.setState(prevState => ({ offset: prevState.offset + 8 }))
+          this.setState(prevState => ({ offset: prevState.offset + 8 }))
         })
         .catch(error => {
           this.setState({ error, loading: false });
@@ -70,10 +51,10 @@ class Main extends Component {
     const { searchQuery, offset } = this.state;
     this.setState(prevState => ({ offset: prevState.offset + 8 }))
 
+    this.setState({ loading: true });
 
     API.getImages(searchQuery, offset)
       .then(images => {
-        // console.log('images', images);
         this.setState({
           images,
           loading: false
@@ -91,7 +72,8 @@ class Main extends Component {
 
     const searchInput = document.querySelector('input[name=searchInput]');
     const inputValue = searchInput.value.trim();
-    this.setState({ searchQuery: inputValue })
+    this.setState({ searchQuery: inputValue });
+    searchInput.value = '';
   }
 
 

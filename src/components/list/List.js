@@ -3,6 +3,7 @@ import styles from './list.module.scss';
 
 import Backdrop from './Backdrop/Backdrop';
 
+
 const List = ({ items, imageHeiht, elemId, handleIButtonClick, handleBackdropClick }) => (
   <ul
     id="gallery"
@@ -16,14 +17,16 @@ const List = ({ items, imageHeiht, elemId, handleIButtonClick, handleBackdropCli
         >
           <div className={styles.imgWrap}>
             <img
-              id="galleryImg"
-              style={{ height: imageHeiht }}
+              width="300"
+              height="200"
               className={styles.image}
               src={item.images.preview_gif.url}
               alt=" gif-image" />
           </div>
           <div className={styles.nameWrap}>
-            <div className={styles.imgName}>{item.title}</div>
+            <div className={styles.imgName}>
+              {item.title}
+            </div>
             <button
               data-attribute={item.id}
               className={styles.iButton}
