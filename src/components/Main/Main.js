@@ -38,7 +38,7 @@ class Main extends Component {
             images,
             loading: false
           });
-          this.setState(prevState => ({ offset: prevState.offset + 8 }))
+          this.setState(prevState => ({ offset: prevState.offset + 1 }))
         })
         .catch(error => {
           this.setState({ error, loading: false });
@@ -49,7 +49,7 @@ class Main extends Component {
   handleRefreshButtonClick = () => {
 
     const { searchQuery, offset } = this.state;
-    this.setState(prevState => ({ offset: prevState.offset + 8 }))
+    this.setState(prevState => ({ offset: prevState.offset + 7 }))
 
     this.setState({ loading: true });
 
