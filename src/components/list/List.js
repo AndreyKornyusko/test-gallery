@@ -18,7 +18,7 @@ const List = ({ items, imageHeiht, elemId, handleIButtonClick, handleBackdropCli
           <div className={styles.imgWrap}>
             <img
               width="300"
-              height="200"
+              height="250"
               className={styles.image}
               src={item.images.preview_gif.url}
               alt=" gif-image" />
